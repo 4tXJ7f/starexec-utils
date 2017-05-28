@@ -36,7 +36,7 @@ def main(from_xml_filename, to_xml_filename):
 
   to_tree = ET.parse(to_xml_filename)
   set_solvers_in_xml(to_tree.getroot(), solvers)
-  to_tree.write('new_output.xml')
+  to_tree.write('transfer_solvers.out.xml')
 
 if __name__ == '__main__':
   assert len(sys.argv) > 2

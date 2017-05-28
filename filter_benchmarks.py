@@ -37,7 +37,7 @@ def main(xml_filename, benchmark_list_filename):
   root = tree.getroot()
   stats = defaultdict(int)
   filter_space(stats, root, benchmark_list, [])
-  tree.write('output_filtered.xml')
+  tree.write('filter_benchmarks.out.xml')
 
   stats_list = ['{}: {}'.format(k, v) for k, v in stats.items()]
   print('\n'.join(sorted(stats_list)))

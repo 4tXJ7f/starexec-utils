@@ -33,7 +33,7 @@ def main(xml_filename, target_attribute, target_value):
   root = tree.getroot()
   stats = defaultdict(int)
   filter_space(stats, root, target_attribute, target_value, [])
-  tree.write('output2.xml')
+  tree.write('filter_attributes.out.xml')
 
   stats_list = ['{}: {}'.format(k, v) for k, v in stats.items()]
   print('\n'.join(sorted(stats_list)))
