@@ -18,6 +18,8 @@ def main(csv_filenames):
   solver_solved = defaultdict(int)
   benchmark_times = defaultdict(lambda: dict())
 
+  vtimeout = 600
+
   for csv_filename in csv_filenames:
     with open(csv_filename, 'r') as csv_file:
       csv_reader = csv.reader(csv_file, delimiter=',', skipinitialspace=True)
@@ -29,6 +31,7 @@ def main(csv_filenames):
         solver = '{}/{}'.format(row[3], row[5])
         configuration = row[5]
         status = row[7]
+        cpu_time = float(row[8])
         wallclock_time = float(row[9])
         result = row[11]
         expected_result = row[12]
@@ -39,12 +42,16 @@ def main(csv_filenames):
         assert result in ['sat', 'unsat', 'starexec-unknown']
         assert expected_result in ['sat', 'unsat', 'starexec-unknown']
 
-        solver_time[solver] += wallclock_time
+        if cpu_time > vtimeout:
+            cpu_time = vtimeout
+            result = 'starexec-unknown'
+
+        solver_time[solver] += cpu_time
 
         if result in ['sat', 'unsat']:
           solver_solved[solver] += 1
 
-        benchmark_times[benchmark_path][solver] = wallclock_time
+        benchmark_times[benchmark_path][solver] = cpu_time
 
   for solver, time in solver_time.items():
     print('{}: {}'.format(solver, time))
