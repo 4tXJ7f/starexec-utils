@@ -72,3 +72,8 @@ also *not* included in the result file).
 
 The script `analyze_output.py` analyzes the output of solvers (probably not
 terribly useful).
+
+## Plot results
+
+The script `plot_results.py` creates a scatter plot of the different solver
+paits.
